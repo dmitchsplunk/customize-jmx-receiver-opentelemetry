@@ -1,8 +1,15 @@
 # customize-jmx-receiver-opentelemetry
 
+### Build the Java sample application and copy the result to the tomcat directory
+````
+cd jmx-java-app
+mvn package
+cp ./target/jmx-java-app-1.0-SNAPSHOT.war ../tomcat/
+````
+
 ### Build a Docker image including Tomcat and a sample application 
 ````
-cd tomcat
+cd ../tomcat
 docker build -t tomcat-with-sample-app .
 ````
 
@@ -28,5 +35,5 @@ docker compose up
 
 ### Access the web application using your browser 
 ````
-http://localhost:8080/sample
+http://localhost:8080/jmx-java-app/
 ````
