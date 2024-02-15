@@ -7,8 +7,8 @@ services:
       - SPLUNK_REALM=${SPLUNK_REALM}
     command: [ "--config=/etc/otel-collector-config.yml" ]
     volumes:
-      - ./splunk-otel-collector/otel-collector-config-with-jmx.yml:/etc/otel-collector-config.yml
-#      - ./splunk-otel-collector/otel-collector-config.yml:/etc/otel-collector-config.yml
+#      - ./splunk-otel-collector/otel-collector-config-with-jmx.yml:/etc/otel-collector-config.yml
+      - ./splunk-otel-collector/otel-collector-config.yml:/etc/otel-collector-config.yml
     ports:
       - "13133:13133"
       - "14250:14250"
@@ -20,7 +20,7 @@ services:
       - "9080:9080"
       - "9411:9411"
       - "9943:9943"
-  tomcat:
+  tomcat-with-sample-app:
     image: tomcat-with-sample-app
     environment:
       - OTEL_SERVICE_NAME=tomcat-with-sample-app
@@ -28,4 +28,8 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://splunk-otel-collector:4317
     command: [ "/usr/local/tomcat/bin/catalina.sh", "run" ]
     ports:
-      - "8080:8080"
+      - "8080:8080"  # Tomcat HTTP port
+      - "1099:1099"  # JMX port
+  jmx-metric-gatherer:
+    image: jmx-metric-gatherer
+#    command: [ "java -jar /opt/opentelemetry-java-contrib-jmx-metrics.jar -config session.properties" ]

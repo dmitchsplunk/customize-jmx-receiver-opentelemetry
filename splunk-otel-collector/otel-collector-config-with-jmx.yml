@@ -39,6 +39,7 @@ receivers:
     jar_path: /opt/opentelemetry-java-contrib-jmx-metrics.jar
     endpoint: tomcat-with-sample-app:1099
     target_system: jvm,tomcat
+    log_level: info
   fluentforward:
     endpoint: "${SPLUNK_LISTEN_INTERFACE}:8006"
   hostmetrics:
@@ -168,6 +169,8 @@ exporters:
       insecure: true
   # Debug
   debug:
+    verbosity: detailed
+  logging:
     verbosity: detailed
 
 service:

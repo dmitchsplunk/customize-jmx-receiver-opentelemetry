@@ -10,5 +10,7 @@ ADD sample.war /usr/local/tomcat/webapps/
 ADD setenv.sh /usr/local/tomcat/bin/
 
 EXPOSE 8080
+EXPOSE 1099
 
-CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
+CMD [ "/bin/sh" ]
+#CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]

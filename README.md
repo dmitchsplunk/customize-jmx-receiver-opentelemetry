@@ -6,6 +6,12 @@ cd tomcat
 docker build -t tomcat-with-sample-app .
 ````
 
+### Build a Docker image including the OpenTelemetry JMX Metric Gatherer
+````
+cd ../jmx-metrics
+docker build -t jmx-metric-gatherer .
+````
+
 ### Create a file named .env in the root directory with the information required to connect to Splunk Observability Cloud: 
 ````
 SPLUNK_REALM=<i.e. us0, us1, eu0, etc>
