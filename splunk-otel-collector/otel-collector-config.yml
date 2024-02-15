@@ -165,6 +165,8 @@ exporters:
   # Debug
   debug:
     verbosity: detailed
+  logging:
+    verbosity: detailed
 
 service:
   telemetry:

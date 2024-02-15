@@ -30,6 +30,10 @@ services:
     ports:
       - "8080:8080"  # Tomcat HTTP port
       - "1099:1099"  # JMX port
+    depends_on:
+      - splunk-otel-collector
   jmx-metric-gatherer:
     image: jmx-metric-gatherer
-#    command: [ "java -jar /opt/opentelemetry-java-contrib-jmx-metrics.jar -config session.properties" ]
+    depends_on:
+      - splunk-otel-collector
+      - tomcat-with-sample-app
