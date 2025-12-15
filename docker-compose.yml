@@ -25,7 +25,7 @@ services:
     environment:
       - OTEL_SERVICE_NAME=tomcat-with-sample-app
       - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=jmx_test
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://splunk-otel-collector:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://splunk-otel-collector:4318
     command: [ "/usr/local/tomcat/bin/catalina.sh", "run" ]
     ports:
       - "8080:8080"  # Tomcat HTTP port
