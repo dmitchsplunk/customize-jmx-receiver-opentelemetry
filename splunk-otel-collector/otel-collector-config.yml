@@ -219,13 +219,3 @@ service:
       exporters: [otlphttp/entities]
       # Use instead when sending to gateway
       #exporters: [otlp/gateway]
-    logs:
-      receivers: [fluentforward, otlp]
-      processors:
-        - memory_limiter
-        - batch
-        - resourcedetection
-      #- resource/add_environment
-      exporters: [splunk_hec, splunk_hec/profiling]
-      # Use instead when sending to gateway
-      #exporters: [otlp/gateway]
