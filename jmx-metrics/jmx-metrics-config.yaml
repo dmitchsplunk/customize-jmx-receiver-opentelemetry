@@ -1,0 +1,9 @@
+---
+rules:
+  - bean: jmx-java-app:name=InvocationCountBean
+    mapping:
+      NumInvocations:
+        metric: invocation.count
+        type: counter
+        desc: "The number of invocations"
+        unit: "By"

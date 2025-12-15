@@ -5,6 +5,8 @@ services:
     environment:
       - SPLUNK_ACCESS_TOKEN=${SPLUNK_ACCESS_TOKEN}
       - SPLUNK_REALM=${SPLUNK_REALM}
+      - SPLUNK_HEC_URL=${SPLUNK_HEC_URL}
+      - SPLUNK_HEC_TOKEN=${SPLUNK_HEC_TOKEN}
     command: [ "--config=/etc/otel-collector-config.yml" ]
     volumes:
 #      - ./splunk-otel-collector/otel-collector-config-with-jmx.yml:/etc/otel-collector-config.yml
@@ -30,10 +32,18 @@ services:
     ports:
       - "8080:8080"  # Tomcat HTTP port
       - "1099:1099"  # JMX port
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/jmx-java-app/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     depends_on:
       - splunk-otel-collector
-  jmx-metric-gatherer:
-    image: jmx-metric-gatherer
+  jmx-metric-scraper:
+    image: jmx-metric-scraper
     depends_on:
-      - splunk-otel-collector
-      - tomcat-with-sample-app
+      splunk-otel-collector:
+        condition: service_started
+      tomcat-with-sample-app:
+        condition: service_healthy
+

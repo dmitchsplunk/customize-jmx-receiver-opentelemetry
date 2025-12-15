@@ -1,1 +1,1 @@
-docker build -t jmx-metric-gatherer .
+docker build -t jmx-metric-scraper .

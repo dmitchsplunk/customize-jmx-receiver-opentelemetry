@@ -3,9 +3,9 @@ FROM eclipse-temurin:21.0.2_13-jre-alpine
 WORKDIR /app
 
 ADD session.properties .
-ADD script.groovy .
+ADD jmx-metrics-config.yaml .
 
-# Add the latest version of the JMX Metric Gatherer
-ADD https://github.com/open-telemetry/opentelemetry-java-contrib/releases/download/v1.32.0/opentelemetry-jmx-metrics.jar /opt/opentelemetry-java-contrib-jmx-metrics.jar
+# Add the latest version of the JMX Metric Scraper
+ADD https://github.com/open-telemetry/opentelemetry-java-contrib/releases/download/v1.52.0/opentelemetry-jmx-scraper.jar /opt/opentelemetry-jmx-scraper.jar
 
-CMD java -Dotel.jmx.groovy.script=./script.groovy -jar /opt/opentelemetry-java-contrib-jmx-metrics.jar -config session.properties
+CMD java --add-exports java.security.sasl/com.sun.security.sasl=ALL-UNNAMED -jar /opt/opentelemetry-jmx-scraper.jar -config session.properties
